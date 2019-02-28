@@ -9,9 +9,13 @@ RUN apt-get update && apt-get install -yq supervisor && rm -rf /var/lib/apt/list
 
 # create directories
 RUN mkdir -p /etc/pai && mkdir -p /opt/pai && mkdir -p /opt/log
+WORKDIR /opt/pai
 
 # clone pai (dev)
-RUN git clone https://github.com/jpbarraca/pai.git /opt/pai_tmp && git checkout dev && cp -R /opt/pai_tmp /opt/pai && rm -rf /opt/pai_tmp
+RUN git clone https://github.com/jpbarraca/pai.git /opt/pai && cd /opt/pai && git checkout dev && rm -rf .git .gitignore
+
+# install python library
+RUN pip install --no-cache-dir -r requirements.txt
 
 # copy default config file
 RUN if [ ! -f /etc/pai/pai.conf ]; then cp /opt/pai/config/pai.conf.example /etc/pai/pai.conf; fi
@@ -29,7 +33,7 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 USER paradox
 
 # conf file from host
-VOLUME ["/etc/pai/", "/opt/log/"]
+VOLUME ["/etc/pai/pai.conf", "/opt/log/"]
 
 WORKDIR /opt/pai
 CMD ["supervisord" "-c /etc/supervisor/conf.d/supervisord.conf"]
