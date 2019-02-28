@@ -5,7 +5,7 @@ LABEL maintainer="jakezp <jakezp@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 
 # install supervisord
-apt-get update && apt-get install -yq supervisor && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -yq supervisor && rm -rf /var/lib/apt/lists/*
 
 # create directories
 RUN mkdir -p /etc/pai && mkdir -p /opt/pai && mkdir -p /opt/log
@@ -14,7 +14,7 @@ RUN mkdir -p /etc/pai && mkdir -p /opt/pai && mkdir -p /opt/log
 RUN git clone https://github.com/jpbarraca/pai.git /opt/pai_tmp && git checkout dev && cp -R /opt/pai_tmp /opt/pai && rm -rf /opt/pai_tmp
 
 # copy default config file
-if [ ! -f /etc/pai/pai.conf ]; then cp /opt/pai/config/pai.conf.example /etc/pai/pai.conf; fi
+RUN if [ ! -f /etc/pai/pai.conf ]; then cp /opt/pai/config/pai.conf.example /etc/pai/pai.conf; fi
 
 # install python library
 RUN pip install --no-cache-dir -r requirements.txt
