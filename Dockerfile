@@ -29,7 +29,7 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 USER paradox
 
 # conf file from host
-VOLUME ["/etc/pai/pai.conf", "/opt/log/"]
+VOLUME ["/etc/pai/", "/opt/log/"]
 
 WORKDIR /opt/pai
 CMD ["supervisord" "-c /etc/supervisor/conf.d/supervisord.conf"]
