@@ -1,11 +1,14 @@
-FROM python:3.6
+FROM ubuntu:18.04
 
-LABEL maintainer="jakezp <jakezp@gmail.com>"
+LABEL maintainer="Jakezp <jakezp@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# install supervisord
-RUN apt-get update && apt-get install -yq supervisor && rm -rf /var/lib/apt/lists/*
+# Update and install packages
+RUN apt-get update \
+    && apt-get install -y python3 python3-pip supervisor git\
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # create directories
 RUN mkdir -p /etc/pai && mkdir -p /opt/pai && mkdir -p /opt/log
