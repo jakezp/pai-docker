@@ -17,14 +17,11 @@ WORKDIR /opt/pai
 # clone pai (dev)
 RUN git clone https://github.com/jpbarraca/pai.git /opt/pai && cd /opt/pai && git checkout dev && rm -rf .git .gitignore
 
-# install python library
-RUN pip install --no-cache-dir -r requirements.txt
-
 # copy default config file
 RUN if [ ! -f /etc/pai/pai.conf ]; then cp /opt/pai/config/pai.conf.example /etc/pai/pai.conf; fi
 
 # install python library
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # add user paradox to image
 RUN groupadd -r paradox && useradd -r -g paradox paradox && chown -R paradox /opt/pai && chown -R paradox /opt/log && chown -R paradox /etc/pai
