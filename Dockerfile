@@ -29,10 +29,7 @@ RUN groupadd -r paradox && useradd -r -g paradox paradox && chown -R paradox /op
 # Add config files
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# process run as paradox user
-USER paradox
-
 # conf file from host
 VOLUME ["/etc/pai/", "/opt/log/"]
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
