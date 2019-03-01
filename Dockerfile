@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Update and install packages
 RUN apt-get update \
-    && apt-get install -y python3 python3-pip supervisor git\
+    && apt-get install -y python3-minimal python3-pip supervisor git\
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
