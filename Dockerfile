@@ -35,4 +35,4 @@ USER paradox
 # conf file from host
 VOLUME ["/etc/pai/", "/opt/log/"]
 
-CMD ["/usr/local/bin/supervisord", "-c", "/etc/supervisord/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord/supervisord.conf"]
